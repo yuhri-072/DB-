@@ -1,4 +1,3 @@
-```md
 ```mermaid
 graph TD
 A[家族(スマホ)] -->|予定登録| B[カレンダーWebアプリ]
