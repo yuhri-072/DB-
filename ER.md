@@ -1,3 +1,5 @@
+```mermaid
+
 erDiagram
     SCHEDULE {
         INTEGER id PK
@@ -5,3 +7,5 @@ erDiagram
         TEXT title
         TIMESTAMP created_at
     }
+
+```
