@@ -1,0 +1,6 @@
+# PostgreSQL data（絶対にGitに入れない）
+db/data/
+
+# Python
+__pycache__/
+*.pyc

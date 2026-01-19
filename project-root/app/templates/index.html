@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>お年寄り向けカレンダー</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .today{
+            font-size: 48px;
+            margin-top: 40px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 24px;
+        }
+        th, td{
+            border: 1px solid #999;
+            width: 80px;
+            height: 60px;
+        }
+        th{
+            background-color: #f0f0f0;
+        }
+        .sunday{
+            color: red;
+        }
+        .crud {
+            margin-top: 40px;
+            font-size: 24px;
+        }
+        input, button {
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        /* カレンダー日付リンクの完全固定 */
+
+        /* カレンダー日付リンクの完全固定 */
+        table td a {
+            color: black;
+            text-decoration: none;
+        }
+
+        table td a:visited,
+        table td a:hover,
+        table td a:active,      
+        table td a:focus {
+            color: black;
+            text-decoration: none;
+            outline: none;
+        }
+
+        table td a.has-schedule {
+            color: red !important;
+            font-weight: bold;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="today">
+    {{year}}年 {{month}}月
+</div>
+
+<table>
+    <tr>
+        <th class="sunday">日</th>
+        <th>月</th>
+        <th>火</th>
+        <th>水</th>
+        <th>木</th>
+        <th>金</th>
+        <th>土</th>
+    </tr>
+
+    {% for week in month_days %}
+    <tr>
+        {% for day in week %}
+            {% if day == 0 %}
+                <td></td>
+            {% else %}
+
+                <td>
+                    {% set date_str = year ~ '-' ~ '%02d'|format(month) ~ '-' ~ '%02d'|format(day) %}
+
+                    <a href="/?date={{ date_str }}"
+                        class="{% if date_str in schedule_dates %}has-schedule{% endif %}">
+                        {{ day }}
+                    </a>
+                </td>
+
+
+            {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+
+<!-- ================= CRUD 追加 ================= -->
+
+<div class="crud">
+
+<h2>予定を登録</h2>
+<form method="post">
+    <input type="date" name="date" required>
+    <input type="text" name="title" placeholder="予定内容" required>
+    <button type="submit">登録</button>
+</form>
+
+<h2>予定一覧</h2>
+
+{% if schedules %}
+<ul style="list-style:none; padding:0;">
+    {% for s in schedules %}
+    <li>
+        {{ s[1] }} ： {{ s[2] }}
+
+        <!-- 編集 -->
+        <a href="/edit/{{ s[0] }}">編集</a>
+
+        <!-- 削除 -->
+        <form action="/delete/{{ s[0] }}" method="post" style="display:inline;">
+            <button type="submit">削除</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>予定はまだありません。</p>
+{% endif %}
+
+
+</div>
+
+</body>
+</html>

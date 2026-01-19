@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予定編集</title>
+</head>
+<body>
+
+<h2>予定を編集</h2>
+
+<form method="post" action="/update/{{ schedule[0] }}">
+    <input type="date" name="date" value="{{ schedule[1] }}" required>
+    <input type="text" name="title" value="{{ schedule[2] }}" required>
+    <button type="submit">更新</button>
+</form>
+
+<p><a href="/">戻る</a></p>
+
+</body>
+</html>

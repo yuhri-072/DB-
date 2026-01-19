@@ -1,0 +1,14 @@
+services:
+  app_server:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db_server
+
+  db_server:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
